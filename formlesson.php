@@ -1,3 +1,13 @@
+<?php
+
+    if(isset($_POST["submit"])) {
+      $name = $_POST["username"];
+      $email = $_POST["email"];
+      echo $name."<br>";
+      echo $email."<br>";
+    }
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,9 +21,20 @@
 
 <body>
 
-  <form action="" method="post">
-    <input type="text" name="" id="">
-    
+  <br><br>
+  <form action="#" method="post">
+    <!-- action: to whic ink will th data go -->
+    <!-- method: here it is "post" directly to php not by "get" though URL -->
+
+    <label for=""> Username </label><br>
+    <input type="username" name="username" id=""><br><br>
+
+    <label for=""> Email </label><br>
+    <input type="email" name="email" id=""><br><br>
+
+    <!-- <label for=""> Submit </label><br> -->
+    <input type="submit" value="Add" name="submit">
+   
   </form>
   
 </body>
