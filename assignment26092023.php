@@ -3,8 +3,14 @@
 if(isset($_POST["n_a"]) && isset($_POST["n_b"]) && isset($_POST["operator"])) {
   $n_a = $_POST["n_a"];
   $n_b = $_POST["n_b"];
+  $n_a_size = strlen($n_a);
+  $n_b_size = strlen($n_b);
   $operator = $_POST["operator"];
 
+  if($n_a_size == 0 || $n_b_size == 0) {
+    echo "Field data missing";
+  }
+  else {
     switch ($operator) {
       case "+":
         $result = $n_a + $n_b;
@@ -33,6 +39,7 @@ if(isset($_POST["n_a"]) && isset($_POST["n_b"]) && isset($_POST["operator"])) {
       // break;  
     }
 
+  }
   echo $result = $n_a.$operator.$n_b." = ".$result;
 
 }
