@@ -77,7 +77,8 @@
     <tr>
       <th> Index </th>
       <th> Name </th>
-      <th> Email <th>
+      <th> Email </th>
+      <th> Action </th>
     </tr>
 
       <?php
@@ -92,7 +93,8 @@
     <tr>
       <td> <?php echo $row['id'] ?> </td>
       <td> <?php echo $row['name'] ?> </td>
-      <td> <?= $row['email'] ?> </td>    
+      <td> <?= $row['email'] ?> </td> 
+      <td> <a href="edit-revise-delete.php?id=<?php echo $row['id'] ?>" target = "_blank"> edit. </a><a href="http://"> .delete </a></td>
     </tr>
     
     <?php
