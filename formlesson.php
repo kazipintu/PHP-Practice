@@ -1,10 +1,12 @@
 <?php
 
     if(isset($_POST["submit"])) {
+      
       $name = $_POST["username"];
       $email = $_POST["email"];
       echo $name."<br>";
       echo $email."<br>";
+      
     }
 
 ?>
@@ -23,7 +25,7 @@
 
   <br><br>
   <form action="#" method="post">
-    <!-- action: to whic ink will th data go -->
+    <!-- action: to which link will the data go -->
     <!-- method: here it is "post" directly to php not by "get" though URL -->
 
     <label for=""> Username </label><br>
