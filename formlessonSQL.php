@@ -1,6 +1,8 @@
 
 <?php
 
+  $count = 1;
+
   include 'formlesson_db.php';
 
   if(isset($_POST["submit"])) {   
@@ -10,7 +12,7 @@
     $email_size = strlen($email);
 
     if($name_size == 0 || $email_size == 0) {
-      echo "Field data missing";
+      // echo "Field data missing";
     }
 
     else {
@@ -18,25 +20,20 @@
       // $sql is called sql command.
       $query = mysqli_query ($connect, $sql);
 
-      if($query) {
-        echo "Ok";
-      }
-      else {
-        echo "Missing information";
-      }
+      // if($query) {
+      //   echo "Ok";
+      // }
+      // else {
+      //   echo "Missing information";
+      // }
     
-    // echo $name."<br>";
-    // echo $email."<br>";
+      // echo $name."<br>";
+      // echo $email."<br>";
 
     }
-
-      
-      
-      // ID number or index number is taken automatically in the DB table
-      
     
-
-
+      // ID number or index number is taken automatically in the DB table
+   
   }
 
   $sql = "SELECT * FROM formlearndb_table";
@@ -51,12 +48,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 
-
 </head>
 
 <body>
 
-  <br><br>
   <form action="" method="post">
     <!-- action: to which link will the data go -->
     <!-- method: here it is "post" directly to php not by "get" though URL -->
@@ -82,7 +77,8 @@
     </tr>
 
       <?php
-        while($row = mysqli_fetch_assoc($query)){
+
+          while($row = mysqli_fetch_assoc($query)){
           // echo $row['id']."<br>";
           // echo $row['name']."<br>";
           // echo $row['email']."<br>";
@@ -91,14 +87,15 @@
       ?>
 
     <tr>
-      <td> <?php echo $row['id'] ?> </td>
+      <td> <?php echo $count ?> </td>
       <td> <?php echo $row['name'] ?> </td>
       <td> <?= $row['email'] ?> </td> 
-      <td> <a href="edit-revise-delete.php?id=<?php echo $row['id'] ?>" target = "_blank"> edit. </a><a href="http://"> .delete </a></td>
+      <td> <a href="edit-revise.php?id=<?php echo $row['id'] ?>" target = " "> edit. </a><a href="delete.php?id=<?php echo $row['id'] ?>" target = " "> .delete </a></td>
     </tr>
     
     <?php
 
+        $count = $count + 1;
         }
 
     ?>

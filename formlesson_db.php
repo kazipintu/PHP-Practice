@@ -25,11 +25,11 @@ $password = "your_password";  // Replace with your database password -->
   $connect = mysqli_connect($host, $username, $password, $dbname);
   // $mysqli = new mysqli($host, $username, $password, $dbname);
   
-  if($connect) {
-    echo "Success";
-  }
-  else {
-    echo "Failed";
-  }
+  // if($connect) {
+  //   echo "Success";
+  // }
+  // else {
+  //   echo "Failed";
+  // }
 
 ?>
