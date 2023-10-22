@@ -1,56 +1,33 @@
 <?php
 
-  $count = 1;
   include 'folio_db_config.php';
-  $status = '';
+  $int_status = '';
   
-  $select_sql = "SELECT * FROM about_table";
-  $result = mysqli_query($connect, $select_sql);
-  $num_rows = mysqli_num_rows($result);
-
-  // var_dump($num_rows);
-  // die();
+  $int_sql = "SELECT * FROM int_table";
+  $int_result = mysqli_query($connect, $int_sql);
+  $int_rows = mysqli_num_rows($int_result);
 
   if(isset($_POST['submit'])) {
-    // echo "submit";
-    var_dump($_POST);
-    $name=$_POST['name'];
-    $address=$_POST['address'];
-    $contact=$_POST['contact'];
-    $email=$_POST['email'];
-    $description=$_POST['description'];
-    $linkedin=$_POST['linkedin'];
-    $git=$_POST['git'];
-    $faceb=$_POST['faceb'];
-    var_dump($_FILES['imagery']);
-    $image_data = $_FILES["imagery"]["tmp_name"];
-    die();
-    $image_name = mysqli_real_escape_string($connect, $_FILES["imagery"]["name"]);
-    // var_dump($image_name);
-
-    if($name && $address &&  $contact && $email >0){
-      $sql = "INSERT INTO about_table (name, address, contact, email, description, linkedin, github, faceb, image, image_data) VALUES ('$name', '$address', '$contact', '$email', '$description', '$linkedin', '$git', '$faceb', '$image_name', image_data)";
-      $query = mysqli_query($connect, $sql);
-
-
-      if($query){
-      $status = "inserted successfully";
-
-      }
-      else{
-      $status = "failed to insert";
-      }
-
-    }
-
+    $interest = $_POST['interest'];
+   
+    if( $int_rows > 2){
+      $int_status = "data already available in your database";  
+    } 
+    
     else {
-      $status = "missing field data";
+      $int_sql = "INSERT INTO int_table (interest) VALUES ('$interest')";
+      $int_query = mysqli_query($connect, $int_sql);
+
+      if($int_query){
+        $int_status = "inserted successfully";
+      }
+      
+      else{
+        $int_status = "failed to insert";
+      }
     }
 
   }
-
-  $sql = "SELECT * FROM about_table";
-  $query = mysqli_query($connect, $sql);
 
 ?>
 
@@ -61,7 +38,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Majestic Admin</title>
+  <title>Interests Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="design_admin/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="design_admin/vendors/base/vendor.bundle.base.css">
@@ -88,47 +65,47 @@
           <div class="row">
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
-                <span><?= $status; ?></span>
+                <span><?= $int_status; ?></span>
                 <div class="card-body">
-                  <h4 class="card-title">About Myself</h4>
-                  <form class="forms-sample" method="POST" acion="about_admin.php">
+                  <h4 class="card-title">My Hobbies and Interests</h4>
+                  <form class="forms-sample" method="POST" action="int_admin.php"      enctype="multipart/form-data">
+                    <!-- <div class="form-group">
+                      <label for="exampleInputName">interest</label>
+                      <input type="text" class="form-control" id="exampleInputName" placeholder="interest" name="interest">
+                    </div> -->
                     <div class="form-group">
-                      <label for="exampleInputName">Name</label>
-                      <input type="text" class="form-control" id="exampleInputName" placeholder="Name" name="name">
+                      <label for="exampleInputAddress">interest</label>
+                      <input type="text" class="form-control" id="exampleInputAddress" placeholder="interest" name="interest">
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputAddress">Address</label>
-                      <input type="text" class="form-control" id="exampleInputAddress" placeholder="Address" name="address">
-                    </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputContact">Contact Number</label>
                       <input type="number" class="form-control" id="exampleInputContact" placeholder="Contact" name="contact">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputEmail">Email address</label>
                       <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email address" name="email">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputDescription">Description</label>
                       <input type="text" class="form-control" id="exampleInputDescription" placeholder="Description" name="description">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputLinkedin">Linkedin</label>
                       <input type="text" class="form-control" id="exampleInputLinkedin" placeholder="Linkedin" name="linkedin">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputGitHub">GitHub</label>
                       <input type="text" class="form-control" id="exampleInputGitHub" placeholder="GitHub" name="git">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputFacebook">Facebook</label>
                       <input type="text" class="form-control" id="exampleInputFacebook" placeholder="Facebook" name="faceb">
-                    </div>
+                    </div> -->
                     <div class="form-group">
-                      <label>Upload Image</label>
-                      <!-- <input type="file" name="img[]" class="file-upload-default"> -->
+                      <!-- <label>Upload Image</label>
+                      <input type="file" name="img[]" class="file-upload-default"> -->
                       <div class="input-group col-xs-12">
-                        <input type="file" name="imagery" class="form-control file-upload-info">
+                        <!-- <input type="file" name="image" class="form-control file-upload-info"> -->
                         <span class="input-group-append">
                           <!-- <button class="file-upload-browse btn btn-primary" type="button">Upload</button> -->
                         </span>
@@ -139,41 +116,7 @@
                 </div>
               </div>
             </div>
-            <h6> RETRIEVED TABLE</h6>
-            <table>
-              <tr>
-                <th> Serial </th>
-                <th> Photo </th>
-                <th> Name </th>
-                <th> Address </th>
-                <th> Contact Number </th>
-                <th> Email id </th>
-              </tr>
-              <?php
-                 while($row = mysqli_fetch_assoc($query)){
-                  // echo $row['id']."<br>";
-                  // echo $row['image_data']."<br>";
-                  // echo $row['name']."<br>";
-                  // echo $row['address']."<br>";
-                  // echo $row['contact']."<br>";
-                  // echo $row['email']."<br>";
-                 
-              ?>
-              <tr>
-                <td> <?= $count ?> </td>
-                <td> <img src= "<?= $row['image_data']?>"> </td>
-                <td> <?= $row['name'] ?> </td>
-                <td> <?= $row['address'] ?> </td> 
-                <td> <?= $row['contact'] ?> </td> 
-                <td> <?= $row['email'] ?> </td> 
-              </tr>
-              <?php
-              
-                  $count = $count + 1;
-                }
-            
-              ?>
-            </table>
+
           </div>
         </div>
         <!-- content-wrapper ends -->

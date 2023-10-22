@@ -1,5 +1,6 @@
 <?php
 
+  $count = 1;
   include 'folio_db_config.php';
   $status = '';
   
@@ -12,7 +13,7 @@
 
   if(isset($_POST['submit'])) {
     // echo "submit";
-    // var_dump($_POST);
+    var_dump($_POST);
     $name=$_POST['name'];
     $address=$_POST['address'];
     $contact=$_POST['contact'];
@@ -21,83 +22,36 @@
     $linkedin=$_POST['linkedin'];
     $git=$_POST['git'];
     $faceb=$_POST['faceb'];
-
-    $folder_location = "uploads/";
-    $file_location  = $folder_location . (basename($_FILES["image"]["name"]));
-
-    $upload_success = 1;
-
-    if(isset($_POST["submit"])) {
-      $inspect = getimagesize($_FILES["image"]["tmp_name"]);
-      // var_dump($inspect);
-      if($inspect !== false){
-        $upload_success = 1;
-      }
-      else{
-        $upload_success = 0;
-      } 
-    }
-    
-    if($_FILES['image']['size'] > 2000000) {
-      echo "file is too large";
-      $upload_success = 0;
-    }
-
-    if(file_exists($file_location)) {
-      echo "file already exists";
-      $upload_success = 0;
-    }
-
-    $accepted_extensions = array("jpg", "jpeg", "png", "gif");
-    $convert_file_extension_lowercase = strtolower(pathinfo($file_location, PATHINFO_EXTENSION));
-
-    if(!in_array($convert_file_extension_lowercase, $accepted_extensions,)) {
-      echo "only JPG, JPEG, PNG and GIF filees are allowed";
-      $upload_success = 0;
-    }
-
-    if($upload_success == 0){
-      echo "this file can not be uploaded";
-    } else {
-      if(move_uploaded_file($_FILES["image"]["tmp_name"], $file_location)) {
-        echo "The file " . basename($_FILES["image"]["name"]) . " has been uploaded";
-
-        // Diaplay the uploaded image
-        echo '<img src ="' . $file_location . '" alt = "uploaded image">';
-      } else {
-        echo "There was an error uplaoding your file";
-      }
-        
-    }
-
-    // var_dump($_FILES['image']['size']);
-    // var_dump( $convert_file_extension_lowercase);
-    // die();
-
+    echo $_FILES['imagery'];
     $image_data = $_FILES["image"]["tmp_name"];
-    // var_dump($_FILES['image']);
-    // $image_name = mysqli_real_escape_string($connect, $_FILES["image"]["name"]);
+    $imageDataEncoded = base64_encode($row['image_data']);
+    // die();
+    $image_name = mysqli_real_escape_string($connect, $_FILES["image"]["name"]);
     // var_dump($image_name);
 
-    if( $num_rows >0){
-      $status = "data already available in your database";  
-    } 
-    
-    else {
-      $sql = "INSERT INTO about_table (name, address, contact, email, description, linkedin, github, faceb, image, image_data) VALUES ('$name', '$address', '$contact', '$email', '$description', '$linkedin', '$git', '$faceb', '$file_location', '$image_data')";
+    if($name && $address &&  $contact && $email){
+      $sql = "INSERT INTO about_table (name, address, contact, email, description, linkedin, github, faceb, image, image_data) VALUES ('$name', '$address', '$contact', '$email', '$description', '$linkedin', '$git', '$faceb', '$image_name', '$image_data')";
       $query = mysqli_query($connect, $sql);
+
 
       if($query){
       $status = "inserted successfully";
-      }
 
+      }
       else{
       $status = "failed to insert";
       }
 
     }
 
+    else {
+      $status = "missing field data";
+    }
+
   }
+
+  $sql = "SELECT * FROM about_table";
+  $query = mysqli_query($connect, $sql);
 
 ?>
 
@@ -108,7 +62,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>About Admin</title>
+  <title>Majestic Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="design_admin/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="design_admin/vendors/base/vendor.bundle.base.css">
@@ -138,7 +92,7 @@
                 <span><?= $status; ?></span>
                 <div class="card-body">
                   <h4 class="card-title">About Myself</h4>
-                  <form class="forms-sample" method="POST" action="about_admin.php" enctype="multipart/form-data">
+                  <form class="forms-sample" method="POST" acion="about_admin.php"  enctype="multipart/form-data">
                     <div class="form-group">
                       <label for="exampleInputName">Name</label>
                       <input type="text" class="form-control" id="exampleInputName" placeholder="Name" name="name">
@@ -173,9 +127,9 @@
                     </div>
                     <div class="form-group">
                       <label>Upload Image</label>
-                      <input type="file" name="img[]" class="file-upload-default">
+                      <!-- <input type="file" name="img[]" class="file-upload-default"> -->
                       <div class="input-group col-xs-12">
-                        <input type="file" name="image" class="form-control file-upload-info">
+                        <input type="file" name="image">
                         <span class="input-group-append">
                           <!-- <button class="file-upload-browse btn btn-primary" type="button">Upload</button> -->
                         </span>
@@ -186,7 +140,45 @@
                 </div>
               </div>
             </div>
-
+            <h6> RETRIEVED TABLE</h6>
+            <table>
+              <tr>
+                <th> Serial </th>
+                <th> Photo </th>
+                <th> Name </th>
+                <th> Address </th>
+                <th> Contact Number </th>
+                <th> Email id </th>
+              </tr>
+              <?php
+                 while($row = mysqli_fetch_assoc($query)){
+                  // echo $row['id']."<br>";
+                  // echo $row['image_data']."<br>";
+                  // echo $row['name']."<br>";
+                  // echo $row['address']."<br>";
+                  // echo $row['contact']."<br>";
+                  // echo $row['email']."<br>";
+                 
+              ?>
+              <tr>
+                <td> <?= $count ?> </td>
+                <td> 
+                  <img 
+                    src= "data:image/jpeg;base64,' . $imageDataEncoded . '" 
+                  >  
+                </td>
+                <td> <?= $row['name'] ?> </td>
+                <td> <?= $row['address'] ?> </td> 
+                <td> <?= $row['contact'] ?> </td> 
+                <td> <?= $row['email'] ?> </td> 
+              </tr>
+              <?php
+              
+                  $count = $count + 1;
+                }
+            
+              ?>
+            </table>
           </div>
         </div>
         <!-- content-wrapper ends -->

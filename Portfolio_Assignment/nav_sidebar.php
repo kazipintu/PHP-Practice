@@ -15,6 +15,11 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="about_admin.php">About</a></li>
+                <li class="nav-item"> <a class="nav-link" href="exp_admin.php">Experience</a></li>
+                <li class="nav-item"> <a class="nav-link" href="edu_admin.php">Education</a></li>
+                <li class="nav-item"> <a class="nav-link" href="skill_admin.php">Skills</a></li>
+                <li class="nav-item"> <a class="nav-link" href="int_admin.php">Interests</a></li>
+                <li class="nav-item"> <a class="nav-link" href="award_admin.php">Awards</a></li>
                 <!-- <li class="nav-item"> <a class="nav-link" href="about_admin.php">Entry List</a></li> -->
               </ul>
             </div>

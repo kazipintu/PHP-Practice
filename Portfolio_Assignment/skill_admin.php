@@ -1,100 +1,30 @@
 <?php
 
   include 'folio_db_config.php';
-  $status = '';
+  $sk_status = '';
   
-  $select_sql = "SELECT * FROM about_table";
-  $result = mysqli_query($connect, $select_sql);
-  $num_rows = mysqli_num_rows($result);
-
-  // var_dump($num_rows);
-  // die();
+  $sk_sql = "SELECT * FROM skill_table";
+  $sk_result = mysqli_query($connect, $sk_sql);
+  $sk_rows = mysqli_num_rows($sk_result);
 
   if(isset($_POST['submit'])) {
-    // echo "submit";
-    // var_dump($_POST);
-    $name=$_POST['name'];
-    $address=$_POST['address'];
-    $contact=$_POST['contact'];
-    $email=$_POST['email'];
-    $description=$_POST['description'];
-    $linkedin=$_POST['linkedin'];
-    $git=$_POST['git'];
-    $faceb=$_POST['faceb'];
-
-    $folder_location = "uploads/";
-    $file_location  = $folder_location . (basename($_FILES["image"]["name"]));
-
-    $upload_success = 1;
-
-    if(isset($_POST["submit"])) {
-      $inspect = getimagesize($_FILES["image"]["tmp_name"]);
-      // var_dump($inspect);
-      if($inspect !== false){
-        $upload_success = 1;
-      }
-      else{
-        $upload_success = 0;
-      } 
-    }
-    
-    if($_FILES['image']['size'] > 2000000) {
-      echo "file is too large";
-      $upload_success = 0;
-    }
-
-    if(file_exists($file_location)) {
-      echo "file already exists";
-      $upload_success = 0;
-    }
-
-    $accepted_extensions = array("jpg", "jpeg", "png", "gif");
-    $convert_file_extension_lowercase = strtolower(pathinfo($file_location, PATHINFO_EXTENSION));
-
-    if(!in_array($convert_file_extension_lowercase, $accepted_extensions,)) {
-      echo "only JPG, JPEG, PNG and GIF filees are allowed";
-      $upload_success = 0;
-    }
-
-    if($upload_success == 0){
-      echo "this file can not be uploaded";
-    } else {
-      if(move_uploaded_file($_FILES["image"]["tmp_name"], $file_location)) {
-        echo "The file " . basename($_FILES["image"]["name"]) . " has been uploaded";
-
-        // Diaplay the uploaded image
-        echo '<img src ="' . $file_location . '" alt = "uploaded image">';
-      } else {
-        echo "There was an error uplaoding your file";
-      }
-        
-    }
-
-    // var_dump($_FILES['image']['size']);
-    // var_dump( $convert_file_extension_lowercase);
-    // die();
-
-    $image_data = $_FILES["image"]["tmp_name"];
-    // var_dump($_FILES['image']);
-    // $image_name = mysqli_real_escape_string($connect, $_FILES["image"]["name"]);
-    // var_dump($image_name);
-
-    if( $num_rows >0){
-      $status = "data already available in your database";  
+    $skill=$_POST['skill'];
+   
+    if( $sk_rows > 14){
+      $sk_status = "data already available in your database";  
     } 
     
     else {
-      $sql = "INSERT INTO about_table (name, address, contact, email, description, linkedin, github, faceb, image, image_data) VALUES ('$name', '$address', '$contact', '$email', '$description', '$linkedin', '$git', '$faceb', '$file_location', '$image_data')";
-      $query = mysqli_query($connect, $sql);
+      $sk_sql = "INSERT INTO skill_table (skill) VALUES ('$skill')";
+      $sk_query = mysqli_query($connect, $sk_sql);
 
-      if($query){
-      $status = "inserted successfully";
+      if($sk_query){
+        $sk_status = "inserted successfully";
       }
-
+      
       else{
-      $status = "failed to insert";
+        $sk_status = "failed to insert";
       }
-
     }
 
   }
@@ -108,7 +38,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>About Admin</title>
+  <title>Skill Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="design_admin/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="design_admin/vendors/base/vendor.bundle.base.css">
@@ -135,47 +65,47 @@
           <div class="row">
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
-                <span><?= $status; ?></span>
+                <span><?= $sk_status; ?></span>
                 <div class="card-body">
-                  <h4 class="card-title">About Myself</h4>
-                  <form class="forms-sample" method="POST" action="about_admin.php" enctype="multipart/form-data">
+                  <h4 class="card-title">My Skills</h4>
+                  <form class="forms-sample" method="POST" action="skill_admin.php" enctype="multipart/form-data">
                     <div class="form-group">
-                      <label for="exampleInputName">Name</label>
-                      <input type="text" class="form-control" id="exampleInputName" placeholder="Name" name="name">
+                      <label for="exampleInputName">skill</label>
+                      <input type="text" class="form-control" id="exampleInputName" placeholder="skill" name="skill">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputAddress">Address</label>
                       <input type="text" class="form-control" id="exampleInputAddress" placeholder="Address" name="address">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputContact">Contact Number</label>
                       <input type="number" class="form-control" id="exampleInputContact" placeholder="Contact" name="contact">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputEmail">Email address</label>
                       <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email address" name="email">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputDescription">Description</label>
                       <input type="text" class="form-control" id="exampleInputDescription" placeholder="Description" name="description">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputLinkedin">Linkedin</label>
                       <input type="text" class="form-control" id="exampleInputLinkedin" placeholder="Linkedin" name="linkedin">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputGitHub">GitHub</label>
                       <input type="text" class="form-control" id="exampleInputGitHub" placeholder="GitHub" name="git">
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                       <label for="exampleInputFacebook">Facebook</label>
                       <input type="text" class="form-control" id="exampleInputFacebook" placeholder="Facebook" name="faceb">
-                    </div>
+                    </div> -->
                     <div class="form-group">
-                      <label>Upload Image</label>
-                      <input type="file" name="img[]" class="file-upload-default">
+                      <!-- <label>Upload Image</label>
+                      <input type="file" name="img[]" class="file-upload-default"> -->
                       <div class="input-group col-xs-12">
-                        <input type="file" name="image" class="form-control file-upload-info">
+                        <!-- <input type="file" name="image" class="form-control file-upload-info"> -->
                         <span class="input-group-append">
                           <!-- <button class="file-upload-browse btn btn-primary" type="button">Upload</button> -->
                         </span>

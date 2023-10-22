@@ -20,7 +20,15 @@ echo $key.'-'.$val."<br>";
 echo '<br>';
 foreach($asso1 as $key){
 echo $key.'-'.$val."<br>";
-  
 }
+
+echo "<br>";
+for ($i = 4; $i<5; $i = $i + 1) {
+  if ($i == 5) {
+    break;
+  } 
+    echo $i."<br>";
+}
+
 
 ?>
