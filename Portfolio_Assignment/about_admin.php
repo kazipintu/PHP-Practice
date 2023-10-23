@@ -1,5 +1,6 @@
 <?php
 
+  $count = 1;
   include 'folio_db_config.php';
   $status = '';
   
@@ -85,7 +86,7 @@
     
     else {
       $sql = "INSERT INTO about_table (name, address, contact, email, description, linkedin, github, faceb, image, image_data) VALUES ('$name', '$address', '$contact', '$email', '$description', '$linkedin', '$git', '$faceb', '$file_location', '$image_data')";
-      $query = mysqli_query($connect, $sql);
+      $query = mysqli_query($connect, $select_sql );
 
       if($query){
       $status = "inserted successfully";
@@ -94,10 +95,12 @@
       else{
       $status = "failed to insert";
       }
-
     }
 
   }
+
+  $select_sql = "SELECT * FROM about_table";
+  $query = mysqli_query($connect, $select_sql );
 
 ?>
 
@@ -186,7 +189,39 @@
                 </div>
               </div>
             </div>
-
+            <h6> ABOUT MYSELF</h6>
+            <table>
+              <tr>
+                <th> Sl </th>
+                <th> Name </th>
+                <th> Address </th>
+                <th> Contact </th>
+                <th> Email </th>
+                <th> Description </th>
+                <!-- <th> Linkedin </th>
+                <th> GitHub </th>
+                <th> Facebook </th> -->
+                <th> Photo </th>
+                <th> Action </th>
+              </tr>
+              <?PHP
+                while($row = mysqli_fetch_assoc($query)){
+              ?>
+              <tr>
+                <td> <?= $count ?> </td>
+                <td> <?= $row['name'] ?> </td>
+                <td> <?= $row['address'] ?> </td>
+                <td> <?= $row['contact'] ?> </td>
+                <td> <?= $row['email'] ?> </td>
+                <td> <?= $row['description'] ?> </td>
+                <td> <img   src="C:\xampp\htdocs\PHP-Practice\Portfolio_Assignment\uploads"> </td>
+                <td> <a href="update.php?id=<?php echo $row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $row['id'] ?>" target = " ">delete </a> </td>;
+              </tr>
+              <?php
+                  $count = $count + 1;
+                }
+              ?>
+            </table>
           </div>
         </div>
         <!-- content-wrapper ends -->

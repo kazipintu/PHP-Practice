@@ -1,10 +1,12 @@
 <?php
 
+  $count = 1;
   include 'folio_db_config.php';
   $edu_status = '';
   
   $edu_sql = "SELECT * FROM edu_table";
   $edu_result = mysqli_query($connect, $edu_sql);
+  $edu_query = mysqli_query($connect, $edu_sql);
   $edu_rows = mysqli_num_rows($edu_result);
 
   // var_dump($num_rows);
@@ -125,7 +127,34 @@
                 </div>
               </div>
             </div>
-
+            <h6> EDUCATION</h6>
+            <table>
+              <tr>
+                <th> Sl </th>
+                <th> Institute </th>
+                <th> Degree </th>
+                <th> Score </th>
+                <th> Priod </th>
+                <th> Major </th>
+                <th> Action </th>
+              </tr>
+              <?PHP
+                while($edu_row = mysqli_fetch_assoc($edu_query)){
+              ?>
+              <tr>
+                <td> <?= $count ?> </td>
+                <td> <?= $edu_row['college'] ?> </td>
+                <td> <?= $edu_row['degree'] ?> </td>
+                <td> <?= $edu_row['score'] ?> </td>
+                <td> <?= $edu_row['period'] ?> </td>
+                <td> <?= $edu_row['major'] ?> </td>
+                <td> <a href="update.php?id=<?php echo $exp_row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $exp_row['id'] ?>" target = " ">delete </a> </td>;
+              </tr>
+              <?php
+                  $count = $count + 1;
+                }
+              ?>
+            </table>
           </div>
         </div>
         <!-- content-wrapper ends -->

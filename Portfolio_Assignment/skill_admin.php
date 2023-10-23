@@ -1,10 +1,12 @@
 <?php
 
+  $count = 1;
   include 'folio_db_config.php';
   $sk_status = '';
   
   $sk_sql = "SELECT * FROM skill_table";
   $sk_result = mysqli_query($connect, $sk_sql);
+  $sk_query = mysqli_query($connect, $sk_sql);
   $sk_rows = mysqli_num_rows($sk_result);
 
   if(isset($_POST['submit'])) {
@@ -116,7 +118,31 @@
                 </div>
               </div>
             </div>
-
+            <h6> SKILL-SETS </h6>
+            <table>
+              <tr>
+                <th> Sl </th>
+                <th> Skill </th>
+                <th> Action </th>
+                <!-- <th> Degree </th>
+                <th> Score </th>
+                <th> Priod </th>
+                <th> Major </th>
+                <th> Action </th> -->
+              </tr>
+              <?PHP
+                while($sk_rows = mysqli_fetch_assoc($sk_query)){
+              ?>
+              <tr>
+                <td> <?= $count ?> </td>
+                <td> <?= $sk_rows['skill'] ?> </td>
+                <td> <a href="update.php?id=<?php echo $sk_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $sk_rows['id'] ?>" target = " ">delete </a> </td>;
+              </tr>
+              <?php
+                  $count = $count + 1;
+                }
+              ?>
+            </table>
           </div>
         </div>
         <!-- content-wrapper ends -->

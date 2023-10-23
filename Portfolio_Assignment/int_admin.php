@@ -1,10 +1,12 @@
 <?php
 
+  $count = 1;
   include 'folio_db_config.php';
   $int_status = '';
   
   $int_sql = "SELECT * FROM int_table";
   $int_result = mysqli_query($connect, $int_sql);
+  $int_query = mysqli_query($connect, $int_sql);
   $int_rows = mysqli_num_rows($int_result);
 
   if(isset($_POST['submit'])) {
@@ -116,7 +118,26 @@
                 </div>
               </div>
             </div>
-
+            <h6> HOBBIES & INTERESTS</h6>
+            <table>
+              <tr>
+                <th> Sl </th>
+                <th> Hobbies </th>
+                <th> Action </th>
+              </tr>
+              <?PHP
+                while($int_rows = mysqli_fetch_assoc($int_query)){
+              ?>
+               <tr>
+                <td> <?= $count ?> </td>
+                <td> <?= $int_rows['interest'] ?> </td>
+                <td> <a href="update.php?id=<?php echo $int_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $int_rows['id'] ?>" target = " ">delete </a> </td>;
+              </tr>
+              <?php
+                  $count = $count + 1;
+                }
+              ?>
+            </table>
           </div>
         </div>
         <!-- content-wrapper ends -->

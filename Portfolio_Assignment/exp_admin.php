@@ -1,11 +1,14 @@
 <?php
 
+  $count = 1;
   include 'folio_db_config.php';
   $exp_status = '';
   
   $exp_sql = "SELECT * FROM exp_table";
-  $exp_result = mysqli_query($connect, $exp_sql);
+  $exp_result = mysqli_query($connect, $exp_sql); 
+  $exp_query = mysqli_query($connect, $exp_sql);
   $exp_row = mysqli_fetch_assoc($exp_result);
+  
 
   if(isset($_POST['submit'])) {
     $designation=$_POST['designation'];
@@ -13,7 +16,7 @@
     $period=$_POST['period'];
     $role=$_POST['role'];
 
-    if( $exp_rows > 3){
+    if( $exp_rows > 10){
       $exp_status = "data already available in your database";  
     } 
     
@@ -28,8 +31,7 @@
       else{
         $exp_status = "failed to insert";
       }
-    }
-
+    }    
   }
 
 ?>
@@ -103,7 +105,32 @@
                 </div>
               </div>
             </div>
-
+            <h6> EXPERIENCE </h6>
+            <table>
+              <tr>
+                <th> Sl </th>
+                <th> Position </th>
+                <th> Company </th>
+                <th> Period </th>
+                <th> Role </th>
+                <th> Action </th>
+              </tr>
+              <?PHP
+                while($exp_row = mysqli_fetch_assoc($exp_query)){
+              ?>
+              <tr>
+                <td> <?= $count ?> </td>
+                <td> <?= $exp_row['designation'] ?> </td>
+                <td> <?= $exp_row['company'] ?> </td>
+                <td> <?= $exp_row['period'] ?> </td>
+                <td> <?= $exp_row['role'] ?> </td>
+                <td> <a href="update.php?id=<?php echo $exp_row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $exp_row['id'] ?>" target = " ">delete </a> </td>;
+              </tr>
+              <?php
+                  $count = $count + 1;
+                }
+              ?>
+            </table>
           </div>
         </div>
         <!-- content-wrapper ends -->
