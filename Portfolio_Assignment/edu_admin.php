@@ -132,7 +132,7 @@
                 <th> Action </th>
               </tr>
               <?PHP
-                while($edu_row = mysqli_fetch_assoc($edu_query)){
+                while($edu_rows = mysqli_fetch_assoc($edu_query)){
               ?>
               <tr>
                 <td> <?= $count ?> </td>
@@ -141,7 +141,7 @@
                 <td> <?= $edu_row['score'] ?> </td>
                 <td> <?= $edu_row['period'] ?> </td>
                 <td> <?= $edu_row['major'] ?> </td>
-                <td> <a href="update.php?id=<?php echo $exp_row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $exp_row['id'] ?>" target = " ">delete </a> </td>;
+                <td> <a href="edu_update.php?id=<?php echo $exp_row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $exp_row['id'] ?>" target = " ">delete </a> </td>;
               </tr>
               <?php
                   $count = $count + 1;

@@ -128,7 +128,7 @@
                 <td> <?= $count ?> </td>
                 <td> <?= $award_rows['award'] ?> </td>
                 <td> <?= $award_rows['description'] ?> </td>
-                <td> <a href="update.php?id=<?php echo $award_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $award_rows['id'] ?>" target = " ">delete </a> </td>;
+                <td> <a href="award_update.php?id=<?php echo $award_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $award_rows['id'] ?>" target = " ">delete </a> </td>;
               </tr>
               <?php
                   $count = $count + 1;

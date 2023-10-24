@@ -131,7 +131,7 @@
                <tr>
                 <td> <?= $count ?> </td>
                 <td> <?= $int_rows['interest'] ?> </td>
-                <td> <a href="update.php?id=<?php echo $int_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $int_rows['id'] ?>" target = " ">delete </a> </td>;
+                <td> <a href="int_update.php?id=<?php echo $int_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $int_rows['id'] ?>" target = " ">delete </a> </td>;
               </tr>
               <?php
                   $count = $count + 1;

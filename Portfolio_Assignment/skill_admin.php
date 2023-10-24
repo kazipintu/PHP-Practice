@@ -130,7 +130,7 @@
               <tr>
                 <td> <?= $count ?> </td>
                 <td> <?= $sk_rows['skill'] ?> </td>
-                <td> <a href="update.php?id=<?php echo $sk_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $sk_rows['id'] ?>" target = " ">delete </a> </td>;
+                <td> <a href="skill_update.php?id=<?php echo $sk_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $sk_rows['id'] ?>" target = " ">delete </a> </td>;
               </tr>
               <?php
                   $count = $count + 1;

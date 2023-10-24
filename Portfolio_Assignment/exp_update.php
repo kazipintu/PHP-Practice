@@ -2,22 +2,18 @@
 
   include 'folio_db_config.php';
 
-  if(isset($_POST['submit'])){
+  if(isset($_POST['submit'])) {
     $id = $_GET['id'];
-    $name=$_POST['name'];
-    $address=$_POST['address'];
-    $contact=$_POST['contact'];
-    $email=$_POST['email'];
-    $description=$_POST['description'];
-    $linkedin=$_POST['linkedin'];
-    $git=$_POST['git'];
-    $faceb=$_POST['faceb'];
+    $designation=$_POST['designation'];
+    $company=$_POST['company'];
+    $period=$_POST['period'];
+    $role=$_POST['role'];
 
-    $about_sql = "UPDATE about_table SET name = '$name', address = '$address', contact = '$contact', email = '$email', description = ' $description', linkedin = '  $linkedin', git = ' $git', faceb = '$faceb',  WHERE id = '$id'";
-    $about_query = mysqli_query($connect, $about_sql );
+    $exp_sql = "UPDATE exp_table SET designation = '$designation', company = '$company', period = '$period', role = '$role', WHERE id = '$id'";
+    $exp_query = mysqli_query($connect, $exp_sql);
 
-    if ($about_query){
-      header("location:about_admin.php");
+    if ($exp_query){
+      header("location:exp_admin.php");
     }
   }
 
@@ -25,11 +21,11 @@
     // echo $_GET['id'];
     $id = $_GET['id'];
 
-    $about_sql = "SELECT * FROM about_table WHERE id = '$id'";
-    $about_query = mysqli_query($connect, $about_sql);
+    $exp_sql = "SELECT * FROM about_table WHERE id = '$id'";
+    $exp_query = mysqli_query($connect, $exp_sql);
 
-    $row = mysqli_fetch_assoc($about_query);
-    echo $row['id'];
+    $exp_rows = mysqli_fetch_assoc($exp_query);
+    echo $exp_rows['id']; 
   
 ?>
 
@@ -40,7 +36,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>About Admin</title>
+  <title>Experience Admin</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="design_admin/vendors/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="design_admin/vendors/base/vendor.bundle.base.css">
@@ -67,49 +63,33 @@
           <div class="row">
             <div class="col-12 grid-margin stretch-card">
               <div class="card">
-                <!-- <span><?= $status; ?></span> -->
+                <span><?= $exp_status; ?></span>
                 <div class="card-body">
-                  <h4 class="card-title">About Myself</h4>
-                  <form class="forms-sample" method="POST" action="about_admin.php" enctype="multipart/form-data">
+                  <h4 class="card-title">My Experience</h4>
+                  <form class="forms-sample" method="POST" action="exp_admin.php"      enctype="multipart/form-data">
                     <div class="form-group">
-                      <label for="exampleInputName">Name</label>
-                      <input type="text" class="form-control" id="exampleInputName" placeholder="Name" name="name">
+                      <label for="exampleInputName">designation</label>
+                      <input type="text" class="form-control" id="exampleInputName" placeholder="designation" name="designation">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputAddress">Address</label>
-                      <input type="text" class="form-control" id="exampleInputAddress" placeholder="Address" name="address">
+                      <label for="exampleInputAddress">company</label>
+                      <input type="text" class="form-control" id="exampleInputAddress" placeholder="company" name="company">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputContact">Contact Number</label>
-                      <input type="number" class="form-control" id="exampleInputContact" placeholder="Contact" name="contact">
+                      <label for="exampleInputContact">period</label>
+                      <input type="text" class="form-control" id="exampleInputContact" placeholder="period" name="period">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail">Email address</label>
-                      <input type="email" class="form-control" id="exampleInputEmail" placeholder="Email address" name="email">
+                      <label for="exampleInputDescription">role</label>
+                      <input type="text" class="form-control" id="exampleInputDescription" placeholder="role" name="role">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputDescription">Description</label>
-                      <input type="text" class="form-control" id="exampleInputDescription" placeholder="Description" name="description">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputLinkedin">Linkedin</label>
-                      <input type="text" class="form-control" id="exampleInputLinkedin" placeholder="Linkedin" name="linkedin">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputGitHub">GitHub</label>
-                      <input type="text" class="form-control" id="exampleInputGitHub" placeholder="GitHub" name="git">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputFacebook">Facebook</label>
-                      <input type="text" class="form-control" id="exampleInputFacebook" placeholder="Facebook" name="faceb">
-                    </div>
-                    <div class="form-group">
-                      <label>Upload Image</label>
-                      <input type="file" name="img[]" class="file-upload-default">
+                      <!-- <label>Upload Image</label>
+                      <input type="file" name="img[]" class="file-upload-default"> -->
                       <div class="input-group col-xs-12">
-                        <input type="file" name="image" class="form-control file-upload-info">
+                        <!-- <input type="file" name="image" class="form-control file-upload-info"> -->
                         <span class="input-group-append">
-                          <!-- <button class="file-upload-browse btn btn-primary" type="button">Upload</button> -->
+                        <!-- <button class="file-upload-browse btn btn-primary" type="button">Upload</button> -->
                         </span>
                       </div>
                     </div>
@@ -118,7 +98,7 @@
                 </div>
               </div>
             </div>
-            
+
           </div>
         </div>
         <!-- content-wrapper ends -->
@@ -147,12 +127,13 @@
   <!-- Custom js for this page-->
   <script src="design_admin/js/file-upload.js"></script>
   <!-- End custom js for this page-->
-
+              
 <?php
 
   }
 
 ?>
+
 </body>
 
 </html>
