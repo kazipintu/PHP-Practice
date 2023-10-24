@@ -7,7 +7,7 @@
   $exp_sql = "SELECT * FROM exp_table";
   $exp_result = mysqli_query($connect, $exp_sql); 
   $exp_query = mysqli_query($connect, $exp_sql);
-  $exp_row = mysqli_fetch_assoc($exp_result);
+  $exp_rows = mysqli_fetch_assoc($exp_result);
   
 
   if(isset($_POST['submit'])) {
@@ -16,22 +16,16 @@
     $period=$_POST['period'];
     $role=$_POST['role'];
 
-    if( $exp_rows > 10){
-      $exp_status = "data already available in your database";  
-    } 
-    
-    else {
-      $exp_sql = "INSERT INTO exp_table (designation, company, period, role) VALUES ('$designation', '$company', '$period', '$role')";
-      $exp_query = mysqli_query($connect, $exp_sql);
+    $exp_sql = "INSERT INTO exp_table (designation, company, period, role) VALUES ('$designation', '$company', '$period', '$role')";
+    $exp_query = mysqli_query($connect, $exp_sql);
 
-      if($exp_query){
-        $exp_status = "inserted successfully";
-      }
+    if($exp_query){
+      $exp_status = "inserted successfully";
+    }
 
-      else{
-        $exp_status = "failed to insert";
-      }
-    }    
+    else{
+      $exp_status = "failed to insert";
+    }  
   }
 
 ?>
@@ -116,15 +110,15 @@
                 <th> Action </th>
               </tr>
               <?PHP
-                while($exp_row = mysqli_fetch_assoc($exp_query)){
+                while($exp_rows = mysqli_fetch_assoc($exp_query)){
               ?>
               <tr>
                 <td> <?= $count ?> </td>
-                <td> <?= $exp_row['designation'] ?> </td>
-                <td> <?= $exp_row['company'] ?> </td>
-                <td> <?= $exp_row['period'] ?> </td>
-                <td> <?= $exp_row['role'] ?> </td>
-                <td> <a href="update.php?id=<?php echo $exp_row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $exp_row['id'] ?>" target = " ">delete </a> </td>;
+                <td> <?= $exp_rows['designation'] ?> </td>
+                <td> <?= $exp_rows['company'] ?> </td>
+                <td> <?= $exp_rows['period'] ?> </td>
+                <td> <?= $exp_rows['role'] ?> </td>
+                <td> <a href="update.php?id=<?php echo $exp_rows['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $exp_rows['id'] ?>" target = " ">delete </a> </td>;
               </tr>
               <?php
                   $count = $count + 1;

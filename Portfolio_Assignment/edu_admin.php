@@ -21,23 +21,16 @@
     $period=$_POST['period'];
     $major=$_POST['major'];
 
-    if( $edu_rows > 12){
-      $edu_status = "data already available in your database";  
-    } 
-    
-    else {
-      $edu_sql = "INSERT INTO edu_table (college, degree, score, period, major) VALUES ('$college', '$degree', '$score', '$period', '$major')";
-      $edu_query = mysqli_query($connect, $edu_sql);
+    $edu_sql = "INSERT INTO edu_table (college, degree, score, period, major) VALUES ('$college', '$degree', '$score', '$period', '$major')";
+    $edu_query = mysqli_query($connect, $edu_sql);
 
-      if($edu_query){
-        $edu_status = "inserted successfully";
-      }
-      
-      else{
-        $edu_status = "failed to insert";
-      }
+    if($edu_query){
+      $edu_status = "inserted successfully";
     }
-
+      
+    else{
+    $edu_status = "failed to insert";
+    }
   }
 
 ?>

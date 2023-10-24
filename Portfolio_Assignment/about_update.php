@@ -26,11 +26,10 @@
     $award = $_POST['award'];
     $description = $_POST['description'];
 
+    $about_sql = "UPDATE about_table SET name = '$name', address = '$address', contact = '$contact', email = '$email', description = ' $description', linkedin = '  $linkedin', git = ' $git', faceb = '$faceb',  WHERE id = '$id'";
+    $about_query = mysqli_query($connect, $about_sql );
 
-    $select_sql = "UPDATE about_table SET name = '$name', address = '$address', contact = '$contact', email = '$email', description = ' $description', linkedin = '  $linkedin', git = ' $git', faceb = '$faceb',  WHERE id = '$id'";
-    $query = mysqli_query($connect, $select_sql );
-
-    if ($query){
+    if ($about_query){
       header("location:about_admin.php");
     }
   }
@@ -39,12 +38,11 @@
     // echo $_GET['id'];
     $id = $_GET['id'];
 
-    $select_sql = "SELECT * FROM about_table WHERE id = '$id'";
-    $query = mysqli_query($connect, $select_sql);
+    $about_sql = "SELECT * FROM about_table WHERE id = '$id'";
+    $about_query = mysqli_query($connect, $about_sql);
 
-    $row = mysqli_fetch_assoc($query);
+    $row = mysqli_fetch_assoc($query_admin);
     echo $row['id'];
-
 ?>
 
 

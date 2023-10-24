@@ -12,13 +12,9 @@
   if(isset($_POST['submit'])) {
     $skill=$_POST['skill'];
    
-    if( $sk_rows > 14){
-      $sk_status = "data already available in your database";  
-    } 
-    
-    else {
-      $sk_sql = "INSERT INTO skill_table (skill) VALUES ('$skill')";
-      $sk_query = mysqli_query($connect, $sk_sql);
+   
+    $sk_sql = "INSERT INTO skill_table (skill) VALUES ('$skill')";
+    $sk_query = mysqli_query($connect, $sk_sql);
 
       if($sk_query){
         $sk_status = "inserted successfully";
@@ -27,8 +23,6 @@
       else{
         $sk_status = "failed to insert";
       }
-    }
-
   }
 
 ?>

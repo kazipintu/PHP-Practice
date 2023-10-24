@@ -2,8 +2,8 @@
 
     include 'folio_db_config.php';
 
-    $select_sql = "SELECT * FROM about_table";
-    $result = mysqli_query($connect, $select_sql);
+    $about_sql = "SELECT * FROM about_table";
+    $result = mysqli_query($connect, $about_sql);
     $row = mysqli_fetch_assoc($result);
 
     $name =  $row['name'];
@@ -11,7 +11,7 @@
 
     $exp_sql = "SELECT * FROM exp_table";
     $exp_result = mysqli_query($connect, $exp_sql);
-    $exp_row = mysqli_fetch_assoc($exp_result);
+    $exp_rows = mysqli_fetch_assoc($exp_result);
 
     $edu_sql = "SELECT * FROM edu_table";
     $edu_result = mysqli_query($connect, $edu_sql);
@@ -106,26 +106,26 @@
                             <h3 class="mb-0">
                                 <?php
                                     for ($i = 0; $i < 2; $i++) {
-                                        $exp_row = mysqli_fetch_assoc($exp_result); 
+                                        $exp_rows = mysqli_fetch_assoc($exp_result); 
                                     }
-                                    echo $exp_row['designation'];
+                                    echo $exp_rows['designation'];
                                 ?>
                             </h3>
                             <div class="subheading mb-3">
                                 <?php
-                                    echo $exp_row['company']; 
+                                    echo $exp_rows['company']; 
                                 ?>
                             </div>
                                 <p>
                                     <?php                                
-                                        echo $exp_row['role']; 
+                                        echo $exp_rows['role']; 
                                     ?>
                                 </p>
                         </div>
                         <div class="flex-shrink-0">
                             <span class="text-primary">
                                 <?php
-                                    echo $exp_row['period']; 
+                                    echo $exp_rows['period']; 
                                 ?>
                             </span>
                         </div>
@@ -190,7 +190,7 @@
                             </span>
                         </div>
                     </div>
-                    <!-- <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
+                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">
                                 <?php
@@ -212,8 +212,14 @@
                                 ?>.
                             </p>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">September 2008 - June 2010</span></div>
-                    </div> -->
+                        <div class="flex-shrink-0">
+                            <span class="text-primary">
+                                <?php
+                                    echo $exp_row['period']; 
+                                ?>
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </section>
             <hr class="m-0" />
@@ -296,32 +302,32 @@
                             <h3 class="mb-0">
                                 <?php
                                     mysqli_data_seek($edu_result, 0);
-                                    for ($i = 0; $i <= 11; $i++) {
-                                    $edu_row = mysqli_fetch_assoc($edu_result); 
+                                    for ($i = 0; $i < 12; $i++) {
+                                    $edu_rows = mysqli_fetch_assoc($edu_result); 
                                     }
-                                    echo $edu_row['college'];
+                                    echo $edu_rows['college'];
                                 ?>
                             </h3>
                             <div class="subheading mb-3">
                                 <?php                                   
-                                    echo $edu_row['degree'];
+                                    echo $edu_rows['degree'];
                                 ?>
                             </div>
                             <div>
                                 <?php                                   
-                                    echo $edu_row['major'];
+                                    echo $edu_rows['major'];
                                 ?>
                             </div>
                             <p>
                                 <?php
-                                    echo $edu_row['score'];
+                                    echo $edu_rows['score'];
                                 ?>
                             </p>
                         </div>
                         <div class="flex-shrink-0">
                             <span class="text-primary">
                                 <?php
-                                    echo $edu_row['period'];
+                                    echo $edu_rows['period'];
                                 ?>
                             </span>
                         </div>
@@ -786,23 +792,23 @@
                                 ?>
                         </li>
                         <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
+                            <!-- <span class="fa-li"><i class="fas fa-check"></i></span> -->
                                 <?php
-                                    mysqli_data_seek($sk_result, 0);
-                                    for ($i = 0; $i <= 12; $i++) {
-                                    $sk_row = mysqli_fetch_assoc($sk_result); 
-                                    }
-                                    echo $sk_row['skill'];
+                                    // mysqli_data_seek($sk_result, 0);
+                                    // for ($i = 0; $i < 12; $i++) {
+                                    // $sk_row = mysqli_fetch_assoc($sk_result); 
+                                    // }
+                                    // echo $sk_row['skill'];
                                 ?>
                         </li>
                         <li>
-                            <span class="fa-li"><i class="fas fa-check"></i></span>
+                            <!-- <span class="fa-li"><i class="fas fa-check"></i></span> -->
                                 <?php
-                                    mysqli_data_seek($sk_result, 0);
-                                    for ($i = 0; $i <= 13; $i++) {
-                                    $sk_row = mysqli_fetch_assoc($sk_result); 
-                                    }
-                                    echo $sk_row['skill'];
+                                    // mysqli_data_seek($sk_result, 0);
+                                    // for ($i = 0; $i < 13; $i++) {
+                                    // $sk_row = mysqli_fetch_assoc($sk_result); 
+                                    // }
+                                    // echo $sk_row['skill'];
                                 ?>
                         </li>
                     </ul>
@@ -957,7 +963,7 @@
                             <span class="fa-li"><i class="fas fa-trophy text-warning"></i></span>
                                     <?php
                                         mysqli_data_seek($award_result, 0);
-                                        for ($i = 0; $i <= 11; $i++) {
+                                        for ($i = 0; $i < 11; $i++) {
                                         $award_row = mysqli_fetch_assoc($award_result); 
                                         }
                                         echo $award_row['award'];

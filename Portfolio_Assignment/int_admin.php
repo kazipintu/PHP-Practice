@@ -12,7 +12,7 @@
   if(isset($_POST['submit'])) {
     $interest = $_POST['interest'];
    
-    if( $int_rows > 2){
+    if( $int_rows > 10){
       $int_status = "data already available in your database";  
     } 
     

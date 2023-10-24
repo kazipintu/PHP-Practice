@@ -4,8 +4,8 @@
   include 'folio_db_config.php';
   $status = '';
   
-  $select_sql = "SELECT * FROM about_table";
-  $result = mysqli_query($connect, $select_sql);
+  $about_sql = "SELECT * FROM about_table";
+  $result = mysqli_query($connect, $about_sql);
   $num_rows = mysqli_num_rows($result);
 
   // var_dump($num_rows);
@@ -80,15 +80,15 @@
     // $image_name = mysqli_real_escape_string($connect, $_FILES["image"]["name"]);
     // var_dump($image_name);
 
-    if( $num_rows >0){
+    if( $num_rows >10){
       $status = "data already available in your database";  
     } 
     
     else {
-      $sql = "INSERT INTO about_table (name, address, contact, email, description, linkedin, github, faceb, image, image_data) VALUES ('$name', '$address', '$contact', '$email', '$description', '$linkedin', '$git', '$faceb', '$file_location', '$image_data')";
-      $query = mysqli_query($connect, $select_sql );
+      $about_sql = "INSERT INTO about_table (name, address, contact, email, description, linkedin, github, faceb, image, image_data) VALUES ('$name', '$address', '$contact', '$email', '$description', '$linkedin', '$git', '$faceb', '$file_location', '$image_data')";
+      $about_query = mysqli_query($connect, $about_sql );
 
-      if($query){
+      if($about_query){
       $status = "inserted successfully";
       }
 
@@ -99,8 +99,8 @@
 
   }
 
-  $select_sql = "SELECT * FROM about_table";
-  $query = mysqli_query($connect, $select_sql );
+  $about_sql = "SELECT * FROM about_table";
+  $about_query = mysqli_query($connect, $about_sql );
 
 ?>
 
@@ -205,7 +205,7 @@
                 <th> Action </th>
               </tr>
               <?PHP
-                while($row = mysqli_fetch_assoc($query)){
+                while($row = mysqli_fetch_assoc($about_query)){
               ?>
               <tr>
                 <td> <?= $count ?> </td>
@@ -215,7 +215,7 @@
                 <td> <?= $row['email'] ?> </td>
                 <td> <?= $row['description'] ?> </td>
                 <td> <img   src="C:\xampp\htdocs\PHP-Practice\Portfolio_Assignment\uploads"> </td>
-                <td> <a href="update.php?id=<?php echo $row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $row['id'] ?>" target = " ">delete </a> </td>;
+                <td> <a href="about_update.php?id=<?php echo $row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $row['id'] ?>" target = " ">delete </a> </td>;
               </tr>
               <?php
                   $count = $count + 1;

@@ -13,13 +13,9 @@
     $award = $_POST['award'];
     $description = $_POST['description'];
    
-    if($award_rows > 15){
-      $award_status = "data already available in your database";  
-    } 
-    
-    else {
-      $award_sql = "INSERT INTO award_table (award, description) VALUES ('$award', '$description')";
-      $award_query = mysqli_query($connect, $award_sql);
+
+    $award_sql = "INSERT INTO award_table (award, description) VALUES ('$award', '$description')";
+    $award_query = mysqli_query($connect, $award_sql);
 
       if($award_query){
         $award_status = "inserted successfully";
@@ -28,7 +24,6 @@
       else{
         $award_status = "failed to insert";
       }
-    }
 
   }
 ?>
