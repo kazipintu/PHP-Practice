@@ -214,7 +214,7 @@
                 <td> <?= $row['contact'] ?> </td>
                 <td> <?= $row['email'] ?> </td>
                 <td> <?= $row['description'] ?> </td>
-                <td> <img   src="C:\xampp\htdocs\PHP-Practice\Portfolio_Assignment\uploads"> </td>
+                <td> <img src="<?php echo $row['image'] ?>"> </td>
                 <td> <a href="about_update.php?id=<?php echo $row['id'] ?>" target = " "> edit</a>&nbsp;<a href="erase.php?id=<?php echo $row['id'] ?>" target = " ">delete </a> </td>;
               </tr>
               <?php

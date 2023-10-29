@@ -11,7 +11,7 @@
 
     $exp_sql = "SELECT * FROM exp_table";
     $exp_result = mysqli_query($connect, $exp_sql);
-    $exp_rows = mysqli_fetch_assoc($exp_result);
+    // $exp_rows = mysqli_fetch_assoc($exp_result);
 
     $edu_sql = "SELECT * FROM edu_table";
     $edu_result = mysqli_query($connect, $edu_sql);
@@ -101,26 +101,36 @@
             <section class="resume-section" id="experience">
                 <div class="resume-section-content">
                     <h2 class="mb-5">Experience</h2>
+                   
+
+                    
+                        <?php
+                            // mysqli_data_seek($exp_result, 0);
+                            // for ($i = 0; $i <= 3; $i++) {
+                            // $exp_row = mysqli_fetch_assoc($exp_result); 
+                            // }
+                            // echo $exp_row['designation'];
+
+                            // $count =1;
+                            while($exp_rows = mysqli_fetch_assoc($exp_result)){                             
+                        ?>
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h3 class="mb-0">
                                 <?php
-                                    for ($i = 0; $i < 2; $i++) {
-                                        $exp_rows = mysqli_fetch_assoc($exp_result); 
-                                    }
-                                    echo $exp_rows['designation'];
+                                    echo $exp_rows['designation']; 
                                 ?>
                             </h3>
-                            <div class="subheading mb-3">
+                        <div class="subheading mb-3">
                                 <?php
                                     echo $exp_rows['company']; 
                                 ?>
-                            </div>
-                                <p>
-                                    <?php                                
-                                        echo $exp_rows['role']; 
-                                    ?>
-                                </p>
+                        </div>
+                            <p>
+                                <?php
+                                    echo $exp_rows['role']; 
+                                ?>
+                            </p>
                         </div>
                         <div class="flex-shrink-0">
                             <span class="text-primary">
@@ -130,96 +140,9 @@
                             </span>
                         </div>
                     </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">
-                                <?php
-                                    mysqli_data_seek($exp_result, 0);
-                                    for ($i = 0; $i <= 1; $i++) {
-                                    $exp_row = mysqli_fetch_assoc($exp_result); 
-                                    }
-                                    echo $exp_row['designation'];
-                                ?>
-                            </h3>
-                        <div class="subheading mb-3">
-                            <?php
-                                echo $exp_row['company']; 
-                            ?>
-                        </div>
-                            <p>
-                                <?php
-                                    echo $exp_row['role']; 
-                                ?>
-                            </p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span class="text-primary">
-                                <?php
-                                    echo $exp_row['period']; 
-                                ?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">
-                                <?php
-                                    mysqli_data_seek($exp_result, 0);
-                                    for ($i = 0; $i < 1; $i++) {
-                                    $exp_row = mysqli_fetch_assoc($exp_result); 
-                                    }
-                                    echo $exp_row['designation'];
-                                ?>
-                            </h3>
-                        <div class="subheading mb-3">
-                            <?php
-                                echo $exp_row['company']; 
-                            ?>
-                        </div>
-                            <p> 
-                                <?php
-                                    echo $exp_row['role']; 
-                                ?>.
-                            </p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span class="text-primary">
-                                <?php
-                                    echo $exp_row['period']; 
-                                ?>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
-                        <div class="flex-grow-1">
-                            <h3 class="mb-0">
-                                <?php
-                                    mysqli_data_seek($exp_result, 0);
-                                    for ($i = 0; $i <= 3; $i++) {
-                                    $exp_row = mysqli_fetch_assoc($exp_result); 
-                                    }
-                                    echo $exp_row['designation'];
-                                ?>
-                            </h3>
-                        <div class="subheading mb-3">
-                            <?php
-                                echo $exp_row['company']; 
-                            ?>
-                        </div>
-                            <p>
-                                <?php
-                                    echo $exp_row['role']; 
-                                ?>.
-                            </p>
-                        </div>
-                        <div class="flex-shrink-0">
-                            <span class="text-primary">
-                                <?php
-                                    echo $exp_row['period']; 
-                                ?>
-                            </span>
-                        </div>
-                    </div>
+                        <?php
+                            }
+                        ?>
                 </div>
             </section>
             <hr class="m-0" />

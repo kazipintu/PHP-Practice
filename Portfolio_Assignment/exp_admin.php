@@ -80,9 +80,18 @@
                       <label for="exampleInputContact">period</label>
                       <input type="text" class="form-control" id="exampleInputContact" placeholder="period" name="period">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                       <label for="exampleInputDescription">role</label>
                       <input type="text" class="form-control" id="exampleInputDescription" placeholder="role" name="role">
+                    </div> -->
+                    <div class="form-group">
+                      <label for="exampleInputDescription">role</label>
+                      <textarea name="role" id="role" rows="10" cols="80"></textarea>
+                      <script>
+                        CKEDITOR.replace('role');
+                      </script>
+
+                      <!-- <input type="text" class="form-control" id="exampleInputDescription" placeholder="role" name="role"> -->
                     </div>
                     <div class="form-group">
                       <!-- <label>Upload Image</label>
@@ -143,6 +152,7 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
+  
   <script src="design_admin/vendors/base/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- inject:js -->
@@ -152,6 +162,12 @@
   <!-- endinject -->
   <!-- Custom js for this page-->
   <script src="design_admin/js/file-upload.js"></script>
+  <script src="https://cdn.ckeditor.com/4.17.2/standard/ckeditor.js"></script>
+  <script>
+    $(document).ready(function () {
+    CKEDITOR.replace('role');
+  });
+</script>
   <!-- End custom js for this page-->
 </body>
 
