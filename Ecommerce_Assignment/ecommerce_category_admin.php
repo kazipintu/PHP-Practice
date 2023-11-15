@@ -21,6 +21,8 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="design_admin/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css"     integrity="sha512-P9pgMgcSNlLb4Z2WAB2sH5KBKGnBfyJnq+bhcfLCFusrRc4XdXrhfDluBl/usq75NF5gTDIMcwI1GaG5gju+Mw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" integrity="sha512-siarrzI1u3pCqFG2LEzi87McrBmq6Tp7juVsdmGY1Dr8Saw+ZBAzDzrGwX3vgxX1NkioYNCFOVC0GpDPss10zQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <!-- endinject -->
   <link rel="shortcut icon" href="design_admin/images/favicon.png" />
 </head>
@@ -37,7 +39,7 @@
       <div class="main-panel">        
         <div class="content-wrapper">
           <div class="row">
-            <div class="col-12 grid-margin stretch-card">
+            <div class="col-12 grid-margin stretch-card" id="insert_category_div">
               <div class="card">
                 <div class="card-body">
                   <h4 class="card-title">Ecommerce Category Admin</h4>
@@ -47,8 +49,26 @@
                       <label for="exampleInputCategory">Category Name</label>
                       <input type="text" class="form-control" id="category_name" placeholder="Category" name="category">
                     </div>
-
+                   
                     <button type="submit" class="btn btn-primary me-2 category_btn" name="submit">Submit</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 grid-margin stretch-card" id="edit_category_div">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="card-title">Ecommerce Edit Category Admin</h4>
+                  <span id = "status"></span>
+                  <form class="forms-sample">
+                    <div class="form-group">
+                      <label for="exampleInputCategory">Edit Category Name</label>
+                      <input type="text" class="form-control" id="edit_category_name" placeholder="Category" name="category">
+                      <input type="hidden" class="form-control" id="edit_category_hidden_id" placeholder="Category" name="category">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary me-2 back_category_btn" name="submit">Back</button>
+                    <button type="submit" class="btn btn-primary me-2 edit_category_btn" name="submit">Submit</button>
                   </form>
                 </div>
               </div>
@@ -69,6 +89,9 @@
                           </th>
                           <th>
                             Category Name
+                          </th>
+                          <th>
+                            Action
                           </th>
                         </tr>
                       </thead>
@@ -111,6 +134,7 @@
 
   <script>
     $(document).ready(function(){
+      $('#edit_category_div').hide();
       $.ajax({
         type : "POST",
         url : 'category_show_data_table.php',
@@ -122,7 +146,8 @@
           // console.log(category_data[i].category)
           for(i = 0; i < category_data.length; i = i+1){
 
-            category_table_tr_data = '<tr> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> </tr>'
+            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash"></i></a> </td> </tr>'
+            
             console.log(category_table_tr_data)
             $('#category_show_data_table').append(category_table_tr_data)
             // console.log(category_data[i].category)
@@ -154,7 +179,64 @@
             $('#category_show_data_table').empty()
             for(i = 0; i < category_data.length; i = i+1){
 
-            category_table_tr_data = '<tr> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> </tr>'
+            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash"></i></a> </td></tr>'
+            
+            console.log(category_table_tr_data)
+              $('#category_show_data_table').append(category_table_tr_data)
+            
+           }
+          }
+
+        });
+
+        // alert(category_name)
+
+      });
+
+      $('body').on('click', '.edit_tr_btn', function(server_loading) {
+        server_loading.preventDefault()
+        var tr = $(this).closest('tr');
+        var td_category_name = tr.find("td").eq(2).text();
+        var td_category_id = tr.find("td").eq(0).text();
+        $('#edit_category_name').val(td_category_name)
+        // alert(td)
+        $('#edit_category_hidden_id').val(td_category_id)
+        $('#edit_category_div').show();
+        $('#insert_category_div').hide();
+
+        // alert ('this is edit page')
+
+      });
+
+      $('.back_category_btn').click(function(server_loading){
+        server_loading.preventDefault()
+        $('#edit_category_div').hide();
+        $('#insert_category_div').show();
+
+      });
+
+      $('.edit_category_btn').click(function(page_loading){
+        page_loading.preventDefault()
+        category_name = $('#edit_category_name').val()
+        category_id = $('#edit_category_hidden_id').val()
+
+        category_data = {
+          category: category_name,
+          id: category_id
+        }
+        $.ajax({
+          type : "POST",
+          url : 'category_edit_table.php',
+          data : category_data,
+          success : function(response) {
+            alert(response)
+            
+            category_data = JSON.parse(response)
+            $('#category_show_data_table').empty()
+            for(i = 0; i < category_data.length; i = i+1){
+
+            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash"></i></a> </td> </tr>'
+            
             console.log(category_table_tr_data)
               $('#category_show_data_table').append(category_table_tr_data)
             
@@ -168,8 +250,6 @@
       });
 
     });
-
-
 
   </script>
 
