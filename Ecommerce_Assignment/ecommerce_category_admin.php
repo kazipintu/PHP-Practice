@@ -146,7 +146,7 @@
           // console.log(category_data[i].category)
           for(i = 0; i < category_data.length; i = i+1){
 
-            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash"></i></a> </td> </tr>'
+            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash delete_tr_btn delete_tr_btn"></i></a> </td> </tr>'
             
             console.log(category_table_tr_data)
             $('#category_show_data_table').append(category_table_tr_data)
@@ -235,7 +235,7 @@
             $('#category_show_data_table').empty()
             for(i = 0; i < category_data.length; i = i+1){
 
-            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash"></i></a> </td> </tr>'
+            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash delete_tr_btn"></i></a> </td> </tr>'
             
             console.log(category_table_tr_data)
               $('#category_show_data_table').append(category_table_tr_data)
@@ -248,6 +248,45 @@
         // alert(category_name)
 
       });
+
+      $('body').on('click', '.delete_tr_btn', function(server_loading) {
+        server_loading.preventDefault()
+        if(confirm("Do you really want to delete?")) {
+          var tr = $(this).closest('tr');
+          var td_category_id = tr.find("td").eq(0).text();
+          category_data = {
+          id: td_category_id
+          }
+          $.ajax({
+          type : "POST",
+          url : 'category_delete_table.php',
+          data : category_data,
+          success : function(response) {
+            alert(response)
+            
+            category_data = JSON.parse(response)
+            $('#category_show_data_table').empty()
+            for(i = 0; i < category_data.length; i = i+1){
+
+            category_table_tr_data = '<tr> <td class="py-1" style="display:none">' + category_data[i].id + '</td> <td class="py-1">' + i + '</td> <td>' + category_data[i].category + '</td> <td class="py-1"> <a href = "#"> <i class="fa-sharp fa-solid fa-pen edit_tr_btn"></i> </a> &nbsp <a href = "#"><i class="fa-solid fa-trash delete_tr_btn"></i></a> </td> </tr>'
+            
+            console.log(category_table_tr_data)
+              $('#category_show_data_table').append(category_table_tr_data)
+            
+           }
+        }
+
+      });
+
+        }
+        else {
+          alert("can not be deleted")
+
+        }
+    
+
+      });
+
 
     });
 
