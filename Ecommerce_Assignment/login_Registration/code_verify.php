@@ -35,14 +35,14 @@ if (isset($_POST["verify"])) {
 </head>
 
 <body>
-    <h1>Email verification</h1>
+    <h1 style="color: blue;">Email verification</h1>
     <div>
         <form action="" method="POST">
             <div>
-                <label>Code (Valid for 5 minutes) </label>
-                <input type="text" name="v_code" id="v_code" placeholder="Enter code to verify email" autocomplete="off">
+                <label style="color: purple;">Code (Valid for 5 minutes) </label>
+                <input style="color: green;" type="text" name="v_code" id="v_code" placeholder="Enter code to verify email" autocomplete="off">
             </div>        
-            <input type="submit" name="verify" value="Verify">
+            <input style="color: blue;" type="submit" name="verify" value="Verify">
         </form>
     </div>
 </body>

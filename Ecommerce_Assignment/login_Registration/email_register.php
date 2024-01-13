@@ -83,31 +83,28 @@ if (isset($_POST["register"])) {
 </head>
 
 <body>
-    <h1>Registration</h1>
+    <h1 style="color: blue;">Registration</h1>
     <div>
         <form action="" method="POST">
             <div>
-                <input type="hidden" name="v_code" value="<?php echo $v_code ?>">
+                <label style="color: purple;">Name</label>
+                <input style="color: green;" type="text" name="name" id="name" placeholder="Enter your name" required>
             </div>
             <div>
-                <label>Name</label>
-                <input type="text" name="name" id="name" placeholder="Enter your name" required>
+                <label style="color: purple;">Email</label>
+                <input style="color: green;" type="email" name="email" id="email" placeholder="Enter your email id" required>
             </div>
             <div>
-                <label>Email</label>
-                <input type="email" name="email" id="email" placeholder="Enter your email id" required>
+                <label style="color: purple;">Password</label>
+                <input style="color: green;" type="password" name="password" id="password" placeholder="Enter password" required>
             </div>
             <div>
-                <label>Password</label>
-                <input type="password" name="password" id="password" placeholder="Enter password" required>
+                <label style="color: purple;">Repeat password</label>
+                <input style="color: green;" type="password" name="c_password" id="c_password" placeholder="Confirm password" required>
             </div>
             <div>
-                <label>Repeat password</label>
-                <input type="password" name="c_password" id="c_password" placeholder="Confirm password" required>
-            </div>
-            <div>
-                <label>User Timezone</label>
-                <select name="user_timezone">
+                <label style="color: purple;">User Timezone</label>
+                <select style="color: green;" name="user_timezone">
                     <?php
                     $timezones = timezone_identifiers_list();
                     foreach ($timezones as $timezone) {
@@ -117,7 +114,7 @@ if (isset($_POST["register"])) {
                 </select>
             </div>
 
-            <input type="submit" name="register" value="Register">
+            <input style="color: blue;" type="submit" name="register" value="Register">
 
         </form>
     </div>
